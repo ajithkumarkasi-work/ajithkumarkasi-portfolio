@@ -524,7 +524,7 @@ const NewApp = () => {
           <div className="flex items-center justify-center gap-6">
             <a
               id="github-link"
-              href="https://github.com/ajithkumar-kasi"
+              href="https://github.com/ajithkumarkasi-work/"
               target="_blank"
               rel="noopener noreferrer"
               className="glass-hover glass w-14 h-14 rounded-xl flex items-center justify-center transition-all"
