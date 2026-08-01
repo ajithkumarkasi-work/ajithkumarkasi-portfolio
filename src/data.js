@@ -83,7 +83,7 @@ export const projectsData = [
       "Engineered an internal validation tool to automate analytics checks for production telemetry events.",
     impact: "Improved QA efficiency and validation precision by 40%.",
     stack: ["React", "JavaScript", "New Relic"],
-    liveUrl: "",
+    liveUrl: "https://ajithkumarkasi-work.github.io/new-relic-validator/",
   },
   {
     title: "TotalQSR Platform",

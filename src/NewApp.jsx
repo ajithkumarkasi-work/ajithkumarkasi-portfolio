@@ -10,8 +10,10 @@ import {
   achievementsData,
   processData,
 } from "./data.js";
+import resumePdf from "./Ajithkumar_Kasi.pdf";
 
-const resumeFile = `${import.meta.env.BASE_URL}Ajithkumar_Kasi_Resume.pdf`;
+const resumeFile = resumePdf;
+const resumeDownloadName = "Ajithkumar_Kasi_Resume.pdf";
 
 const NewApp = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -103,7 +105,11 @@ const NewApp = () => {
                   <i data-lucide="arrow-right" />
                   View Projects
                 </a>
-                <a className="btn btn-outline" href={resumeFile} download>
+                <a
+                  className="btn btn-outline"
+                  href={resumeFile}
+                  download={resumeDownloadName}
+                >
                   <i data-lucide="download" />
                   Download Resume
                 </a>
@@ -376,7 +382,7 @@ const NewApp = () => {
       <footer className="site-footer">
         <div className="container row-between">
           <p>© 2026 {profileData.name}</p>
-          <a href={resumeFile} download>
+          <a href={resumeFile} download={resumeDownloadName}>
             Download Resume
           </a>
         </div>
