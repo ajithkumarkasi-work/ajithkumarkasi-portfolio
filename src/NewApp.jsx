@@ -1,575 +1,384 @@
-import React, { useEffect } from "react";
-import { skillsData, projectsData, experienceData } from "./data.js";
-import resumePdf from "./Ajithkumar_Kasi.pdf";
+import React, { useEffect, useState } from "react";
+import {
+  profileData,
+  metricsData,
+  educationData,
+  skillsData,
+  experienceData,
+  projectsData,
+  servicesData,
+  achievementsData,
+  processData,
+} from "./data.js";
 
-// skillsData, projectsData, and experienceData are imported from data.js
-
-function downloadResume() {
-  const link = document.createElement("a");
-  link.href = resumePdf;
-  link.download = "Ajithkumar_Kasi_Resume.pdf";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
+const resumeFile = `${import.meta.env.BASE_URL}Ajithkumar_Kasi_Resume.pdf`;
 
 const NewApp = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const skillCategoryIcons = [
+    "code-2",
+    "component",
+    "monitor-play",
+    "line-chart",
+  ];
+
+  const navItems = [
+    { href: "#about", label: "About" },
+    { href: "#services", label: "Services" },
+    { href: "#skills", label: "Skills" },
+    { href: "#achievements", label: "Achievements" },
+    { href: "#experience", label: "Experience" },
+    { href: "#projects", label: "Projects" },
+    { href: "#contact", label: "Contact" },
+  ];
+
   useEffect(() => {
     if (window.lucide && typeof window.lucide.createIcons === "function") {
       window.lucide.createIcons();
     }
-  }, []);
+  }, [isMenuOpen]);
 
   return (
     <div className="app-wrapper">
-      {/* Hero Section */}
-      <section
-        className="relative w-full min-h-full flex items-center justify-center px-6"
-        style={{ paddingTop: 120, paddingBottom: 80 }}
-      >
-        {/* Background effects */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div
-            className="absolute w-96 h-96 rounded-full"
-            style={{
-              top: -50,
-              right: -100,
-              background:
-                "radial-gradient(circle, rgba(0, 212, 255, 0.15), transparent)",
-              filter: "blur(40px)",
-              animation: "blob-rotate 20s infinite",
-            }}
-          />
-          <div
-            className="absolute w-72 h-72 rounded-full"
-            style={{
-              bottom: 100,
-              left: -50,
-              background:
-                "radial-gradient(circle, rgba(108, 99, 255, 0.12), transparent)",
-              filter: "blur(40px)",
-              animation: "blob-rotate 25s infinite reverse",
-            }}
-          />
-        </div>
-
-        <div className="relative z-10 max-w-5xl mx-auto text-center">
-          <div className="fade-in-up fade-in-up-1">
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass mb-8">
-              <span
-                className="text-sm font-medium"
-                style={{ color: "#00c8ff" }}
+      <header className="site-header">
+        <div className="container row-between">
+          <a href="#top" className="brand">
+            AK
+          </a>
+          <button
+            type="button"
+            className="menu-toggle"
+            aria-label={
+              isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
+            aria-expanded={isMenuOpen}
+            aria-controls="site-nav"
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+          >
+            <i data-lucide={isMenuOpen ? "x" : "menu"} />
+          </button>
+          <nav
+            id="site-nav"
+            className={`top-nav ${isMenuOpen ? "is-open" : ""}`.trim()}
+          >
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsMenuOpen(false)}
               >
-                ✨ Ready for new challenges
-              </span>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </header>
+
+      <main id="top">
+        <section className="hero section">
+          <div className="container hero-grid">
+            <div className="hero-copy">
+              <p className="eyebrow">Frontend and OTT Engineering</p>
+              <h1>{profileData.name}</h1>
+              <p className="hero-role">{profileData.role}</p>
+              <p className="hero-summary">{profileData.summary}</p>
+
+              <div className="hero-tags">
+                <span>React.js</span>
+                <span>TypeScript</span>
+                <span>Streaming</span>
+                <span>Smart TV Platforms</span>
+              </div>
+
+              <div className="trust-bar">
+                <span>Quickplay Media</span>
+                <span>TotalQSR</span>
+                <span>Chromecast</span>
+                <span>50M+ Users</span>
+              </div>
+
+              <div className="hero-actions">
+                <a className="btn btn-primary" href="#projects">
+                  <i data-lucide="arrow-right" />
+                  View Projects
+                </a>
+                <a className="btn btn-outline" href={resumeFile} download>
+                  <i data-lucide="download" />
+                  Download Resume
+                </a>
+              </div>
+            </div>
+
+            <aside className="hero-panel">
+              <h2>Quick Snapshot</h2>
+              <ul>
+                <li>
+                  <i data-lucide="map-pin" />
+                  <span>{profileData.location}</span>
+                </li>
+                <li>
+                  <i data-lucide="phone" />
+                  <a href={`tel:${profileData.phone.replace(/\s/g, "")}`}>
+                    {profileData.phone}
+                  </a>
+                </li>
+                <li>
+                  <i data-lucide="mail" />
+                  <a href={`mailto:${profileData.email}`}>
+                    {profileData.email}
+                  </a>
+                </li>
+                <li>
+                  <i data-lucide="linkedin" />
+                  <a
+                    href={profileData.linkedinUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    LinkedIn Profile
+                  </a>
+                </li>
+              </ul>
+            </aside>
+          </div>
+        </section>
+
+        <section id="about" className="section">
+          <div className="container">
+            <div className="section-heading">
+              <p className="eyebrow">Overview</p>
+              <h2>Impact at a Glance</h2>
+            </div>
+
+            <div className="metrics-grid">
+              {metricsData.map((metric) => (
+                <article key={metric.label} className="metric-card">
+                  <p className="metric-value">{metric.value}</p>
+                  <p className="metric-label">{metric.label}</p>
+                </article>
+              ))}
+            </div>
+
+            <article className="education-card">
+              <p className="eyebrow">Education</p>
+              <h3>{educationData.degree}</h3>
+              <p>{educationData.institution}</p>
+              <p>
+                {educationData.location} | {educationData.period}
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="services" className="section section-alt">
+          <div className="container">
+            <div className="section-heading">
+              <p className="eyebrow">What I Deliver</p>
+              <h2>Core Services</h2>
+            </div>
+
+            <div className="services-grid">
+              {servicesData.map((service) => (
+                <article key={service.title} className="service-card">
+                  <div className="service-icon">
+                    <i data-lucide={service.icon} />
+                  </div>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                </article>
+              ))}
             </div>
           </div>
+        </section>
 
-          <h1
-            id="hero-name"
-            className="fade-in-up fade-in-up-2 text-5xl md:text-7xl font-bold mb-6 leading-tight"
-          >
-            <span className="gradient-text-primary">Ajithkumar Kasi</span>
-          </h1>
-
-          <p
-            id="hero-title"
-            className="fade-in-up fade-in-up-3 text-2xl md:text-3xl font-semibold mb-4"
-            style={{ color: "#a0aec0" }}
-          >
-            Software Engineer
-          </p>
-
-          <p
-            id="hero-tagline"
-            className="fade-in-up fade-in-up-4 text-base md:text-lg max-w-2xl mx-auto mb-8"
-            style={{ color: "#cbd5e1", lineHeight: 1.8 }}
-          >
-            Building modern web applications and scalable Web SDKs for OTT
-            platforms
-          </p>
-
-          <div className="fade-in-up fade-in-up-5 flex flex-wrap justify-center gap-3 mb-12">
-            <span
-              className="px-3.5 py-2 rounded-lg text-xs font-semibold glass"
-              style={{ color: "#00c8ff" }}
-            >
-              AVIG (Quickplay Media)
-            </span>
-            <span style={{ color: "#404858" }}>•</span>
-            <span
-              className="px-3.5 py-2 rounded-lg text-xs font-semibold glass"
-              style={{ color: "#00c8ff" }}
-            >
-              Codesirpi Software
-            </span>
-          </div>
-
-          <div className="fade-in-up fade-in-up-6 flex flex-col sm:flex-row justify-center gap-4">
-            <a
-              href="#projects"
-              className="btn-primary px-8 py-3.5 rounded-lg text-sm inline-flex items-center gap-2 justify-center"
-            >
-              <i data-lucide="arrow-right" style={{ width: 18, height: 18 }} />
-              View Projects
-            </a>
-            <button
-              type="button"
-              onClick={downloadResume}
-              className="btn-secondary px-8 py-3.5 rounded-lg text-sm inline-flex items-center gap-2 justify-center"
-            >
-              <i data-lucide="download" style={{ width: 18, height: 18 }} />
-              Resume
-            </button>
-            <a
-              href="#contact"
-              className="btn-secondary px-8 py-3.5 rounded-lg text-sm inline-flex items-center gap-2 justify-center"
-            >
-              <i data-lucide="mail" style={{ width: 18, height: 18 }} />
-              Contact
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section className="relative w-full px-6 py-24">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <p
-              className="text-xs font-bold tracking-widest uppercase mb-3"
-              style={{ color: "#00c8ff" }}
-            >
-              About
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold">
-              <span className="gradient-text-primary">Who I Am</span>
-            </h2>
-          </div>
-
-          <div className="card-glow rounded-2xl p-8 md:p-12">
-            <p
-              id="about-text"
-              className="text-base md:text-lg leading-relaxed mb-6"
-              style={{ color: "#cbd5e1", lineHeight: 2 }}
-            >
-              Experienced frontend engineer specializing in Web SDK development
-              and OTT (Over-The-Top) streaming platforms. I've built and
-              optimized Web SDKs used across platforms like
-              <span style={{ color: "#6c63ff", fontWeight: 600 }}>
-                {" "}
-                Aha, Canela, and Univision
-              </span>
-              , reaching millions of users globally.
-            </p>
-            <p
-              className="text-base md:text-lg leading-relaxed"
-              style={{ color: "#cbd5e1", lineHeight: 2 }}
-            >
-              My expertise spans
-              <span style={{ color: "#6c63ff", fontWeight: 600 }}>
-                {" "}
-                React, TypeScript, and performance optimization
-              </span>
-              , with deep experience debugging and deploying across Smart TV
-              platforms including
-              <span style={{ color: "#6c63ff", fontWeight: 600 }}>
-                {" "}
-                LG, Samsung, PS5, and Xbox
-              </span>
-              . I'm passionate about building systems that scale, mentoring
-              teams, and crafting clean, maintainable code architecture.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="relative w-full px-6 py-24">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p
-              className="text-xs font-bold tracking-widest uppercase mb-3"
-              style={{ color: "#6c63ff" }}
-            >
-              Expertise
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold">
-              <span className="gradient-text-primary">
-                Tech I Work With Daily
-              </span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {Object.entries(skillsData).map(([category, skills]) => (
-              <div key={category} className="skill-category">
-                <h3
-                  className="text-lg font-bold mb-6 flex items-center gap-3"
-                  style={{ color: "#e0e7ff" }}
-                >
-                  <span
-                    style={{
-                      width: 4,
-                      height: 28,
-                      background: "linear-gradient(180deg, #6c63ff, #00d4ff)",
-                      borderRadius: 2,
-                    }}
-                  />
-                  {category}
+        <section id="skills" className="section section-alt">
+          <div className="container">
+            <div className="section-heading">
+              <p className="eyebrow">Capabilities</p>
+              <h2>Skills and Technology</h2>
+            </div>
+            <div className="skills-layout">
+              <aside className="skills-intro-card">
+                <p className="eyebrow">Tech Stack</p>
+                <h3>
+                  Built for scale across Web, OTT, and analytics platforms.
                 </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  {skills.map((skill) => (
-                    <div
-                      key={skill.name}
-                      className="skill-badge card-glow rounded-lg p-4 text-center"
-                    >
-                      <div
-                        className="inline-flex items-center justify-center w-10 h-10 mb-3 rounded-lg"
-                        style={{ background: `${skill.color}20` }}
-                      >
-                        <i
-                          data-lucide={skill.icon}
-                          style={{
-                            width: 20,
-                            height: 20,
-                            color: skill.color,
-                          }}
-                        />
-                      </div>
-                      <p
-                        className="text-xs font-semibold"
-                        style={{ color: "#e0e7ff" }}
-                      >
-                        {skill.name}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+                <p>
+                  Strong product engineering focus with reusable architecture,
+                  quality telemetry, and multi-device playback experience.
+                </p>
+              </aside>
 
-      {/* Projects Section */}
-      <section id="projects" className="relative w-full px-6 py-24">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p
-              className="text-xs font-bold tracking-widest uppercase mb-3"
-              style={{ color: "#6c63ff" }}
-            >
-              Portfolio
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold">
-              <span className="gradient-text-primary">Featured Projects</span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projectsData.map((project, idx) => (
-              <div
-                key={project.title}
-                className="card-glow rounded-xl p-6 fade-in-up"
-                style={{ animationDelay: `${idx * 0.1}s` }}
-              >
-                <h3
-                  className="text-lg font-bold mb-4"
-                  style={{ color: "#e0e7ff" }}
-                >
-                  {project.title}
-                </h3>
-                <div className="space-y-4 mb-6">
-                  <div>
-                    <p
-                      className="text-xs font-bold mb-2"
-                      style={{ color: "#6c63ff" }}
-                    >
-                      Problem
-                    </p>
-                    <p className="text-sm" style={{ color: "#a0aec0" }}>
-                      {project.problem}
-                    </p>
-                  </div>
-                  <div>
-                    <p
-                      className="text-xs font-bold mb-2"
-                      style={{ color: "#6c63ff" }}
-                    >
-                      Solution
-                    </p>
-                    <p className="text-sm" style={{ color: "#a0aec0" }}>
-                      {project.solution}
-                    </p>
-                  </div>
-                  <div>
-                    <p
-                      className="text-xs font-bold mb-2"
-                      style={{ color: "#00d4ff" }}
-                    >
-                      Impact
-                    </p>
-                    <p
-                      className="text-sm font-semibold"
-                      style={{ color: "#00d4ff" }}
-                    >
-                      {project.impact}
-                    </p>
-                  </div>
-                </div>
-                <div
-                  className="flex flex-wrap gap-2 pt-4 border-t"
-                  style={{ borderColor: "rgba(108, 99, 255, 0.2)" }}
-                >
-                  {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="px-2.5 py-1 rounded-md text-xs font-semibold"
-                      style={{
-                        background: "rgba(108, 99, 255, 0.2)",
-                        color: "#6c63ff",
-                      }}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Experience Section */}
-      <section id="experience" className="relative w-full px-6 py-24">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <p
-              className="text-xs font-bold tracking-widest uppercase mb-3"
-              style={{ color: "#6c63ff" }}
-            >
-              Career Path
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold">
-              <span className="gradient-text-primary">
-                Professional Experience
-              </span>
-            </h2>
-          </div>
-
-          <div className="timeline">
-            {experienceData.map((exp, idx) => (
-              <div
-                key={exp.company}
-                className="timeline-item fade-in-up"
-                style={{ animationDelay: `${idx * 0.15}s` }}
-              >
-                <div className="timeline-dot" />
-                <div className="card-glow rounded-xl p-8">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                    <div>
-                      <h3
-                        className="text-xl font-bold mb-2"
-                        style={{ color: "#e0e7ff" }}
-                      >
-                        {exp.role}
+              <div className="skills-grid">
+                {Object.entries(skillsData).map(([category, skills], idx) => (
+                  <article key={category} className="skills-card">
+                    <div className="skills-card-head">
+                      <h3>
+                        <span className="skills-icon-wrap">
+                          <i
+                            data-lucide={
+                              skillCategoryIcons[
+                                idx % skillCategoryIcons.length
+                              ]
+                            }
+                          />
+                        </span>
+                        {category}
                       </h3>
-                      <p className="font-semibold" style={{ color: "#6c63ff" }}>
-                        {exp.company}
-                      </p>
+                      <span className="skills-count">
+                        {skills.length} items
+                      </span>
                     </div>
-                    <span
-                      className="text-sm font-semibold mt-4 md:mt-0 px-4 py-2 rounded-lg glass"
-                      style={{ color: "#a0aec0", width: "fit-content" }}
-                    >
-                      {exp.period}
-                    </span>
+                    <div className="skill-pill-group">
+                      {skills.map((skill) => (
+                        <span key={skill} className="skill-pill">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="experience" className="section">
+          <div className="container">
+            <div className="section-heading">
+              <p className="eyebrow">Career</p>
+              <h2>Relevant Experience</h2>
+            </div>
+
+            <div className="experience-list">
+              {experienceData.map((item) => (
+                <article key={item.company} className="experience-card">
+                  <div className="experience-head">
+                    <div>
+                      <h3>{item.role}</h3>
+                      <p className="company">{item.company}</p>
+                      <p className="location">{item.location}</p>
+                    </div>
+                    <p className="period">{item.period}</p>
                   </div>
-                  <ul
-                    className="space-y-3 text-sm"
-                    style={{ color: "#a0aec0" }}
-                  >
-                    {exp.highlights.map((h) => (
-                      <li key={h} className="flex items-start gap-3">
-                        <span
-                          className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full"
-                          style={{ background: "#6c63ff" }}
-                        />
-                        {h}
-                      </li>
+                  <ul>
+                    {item.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
                     ))}
                   </ul>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* What Makes Me Different */}
-      <section id="difference" className="relative w-full px-6 py-24">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <p
-              className="text-xs font-bold tracking-widest uppercase mb-3"
-              style={{ color: "#6c63ff" }}
-            >
-              Unique Value
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold">
-              <span className="gradient-text-primary">What Sets Me Apart</span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="card-glow rounded-xl p-8 text-center">
-              <div
-                className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-xl"
-                style={{ background: "rgba(108, 99, 255, 0.1)" }}
-              >
-                <i
-                  data-lucide="tv"
-                  style={{ width: 28, height: 28, color: "#00d4ff" }}
-                />
-              </div>
-              <h3
-                className="text-lg font-bold mb-3"
-                style={{ color: "#e0e7ff" }}
-              >
-                Smart TV Expertise
-              </h3>
-              <p className="text-sm" style={{ color: "#a0aec0" }}>
-                Deep experience debugging and optimizing across LG, Samsung,
-                PS5, Xbox platforms
-              </p>
-            </div>
-            <div className="card-glow rounded-xl p-8 text-center">
-              <div
-                className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-xl"
-                style={{ background: "rgba(108, 99, 255, 0.1)" }}
-              >
-                <i
-                  data-lucide="package"
-                  style={{ width: 28, height: 28, color: "#6c63ff" }}
-                />
-              </div>
-              <h3
-                className="text-lg font-bold mb-3"
-                style={{ color: "#e0e7ff" }}
-              >
-                SDK & Web Apps
-              </h3>
-              <p className="text-sm" style={{ color: "#a0aec0" }}>
-                Build production Web SDKs and responsive web applications for
-                OTT products and clients
-              </p>
-            </div>
-            <div className="card-glow rounded-xl p-8 text-center">
-              <div
-                className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-xl"
-                style={{ background: "rgba(108, 99, 255, 0.1)" }}
-              >
-                <i
-                  data-lucide="zap"
-                  style={{ width: 28, height: 28, color: "#ff006e" }}
-                />
-              </div>
-              <h3
-                className="text-lg font-bold mb-3"
-                style={{ color: "#e0e7ff" }}
-              >
-                Clean Architecture
-              </h3>
-              <p className="text-sm" style={{ color: "#a0aec0" }}>
-                Apply Feature‑Sliced Design, Effector, and best practices to
-                keep frontends scalable and maintainable
-              </p>
+                </article>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="relative w-full px-6 py-24">
-        <div className="max-w-4xl mx-auto text-center">
-          <p
-            className="text-xs font-bold tracking-widest uppercase mb-3"
-            style={{ color: "#6c63ff" }}
-          >
-            Get in Touch
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="gradient-text-primary">Let's Connect</span>
-          </h2>
-          <p
-            className="text-base max-w-lg mx-auto mb-12"
-            style={{ color: "#a0aec0", lineHeight: 1.8 }}
-          >
-            I'm open to discussing new projects, optimizations, and
-            opportunities to build scalable systems.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
-            <a
-              id="contact-email-btn"
-              href="mailto:ajithkumar.kasi.work@gmail.com"
-              className="btn-primary px-8 py-3.5 rounded-lg text-sm inline-flex items-center gap-2 justify-center"
-            >
-              <i data-lucide="mail" style={{ width: 18, height: 18 }} />
-              <span id="contact-email-text">
-                ajithkumar.kasi.work@gmail.com
-              </span>
-            </a>
+        <section id="achievements" className="section section-alt">
+          <div className="container">
+            <div className="section-heading">
+              <p className="eyebrow">Proof of Work</p>
+              <h2>Highlights and Outcomes</h2>
+            </div>
+            <div className="achievements-grid">
+              {achievementsData.map((item) => (
+                <article key={item.title} className="achievement-card">
+                  <p className="achievement-value">{item.value}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))}
+            </div>
           </div>
-          <div className="flex items-center justify-center gap-6">
-            <a
-              id="github-link"
-              href="https://github.com/ajithkumarkasi-work/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-hover glass w-14 h-14 rounded-xl flex items-center justify-center transition-all"
-            >
-              <i
-                data-lucide="github"
-                style={{ width: 24, height: 24, color: "#6c63ff" }}
-              />
-            </a>
-            <a
-              id="linkedin-link"
-              href="https://www.linkedin.com/in/ajithkumar-kasi/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-hover glass w-14 h-14 rounded-xl flex items-center justify-center transition-all"
-            >
-              <i
-                data-lucide="linkedin"
-                style={{ width: 24, height: 24, color: "#00d4ff" }}
-              />
-            </a>
-            <a
-              href="https://ajithkumar-kasi.github.io/ajith-portfolio/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-hover glass w-14 h-14 rounded-xl flex items-center justify-center transition-all"
-            >
-              <i
-                data-lucide="globe"
-                style={{ width: 24, height: 24, color: "#ff006e" }}
-              />
-            </a>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <footer
-        className="relative w-full px-6 py-8"
-        style={{ borderTop: "1px solid rgba(108, 99, 255, 0.1)" }}
-      >
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-xs" style={{ color: "#404858" }}>
-            © 2026 Ajithkumar K. Built with precision and passion.
-          </p>
+        <section id="projects" className="section">
+          <div className="container">
+            <div className="section-heading">
+              <p className="eyebrow">Work Samples</p>
+              <h2>Projects</h2>
+            </div>
+
+            <div className="projects-grid">
+              {projectsData.map((project) => (
+                <article key={project.title} className="project-card">
+                  <h3>{project.title}</h3>
+                  <p className="project-description">{project.description}</p>
+                  <p className="project-impact">{project.impact}</p>
+                  <div className="chip-group">
+                    {project.stack.map((item) => (
+                      <span key={item} className="chip">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                  {project.liveUrl ? (
+                    <a
+                      className="project-link"
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Visit Live Project
+                    </a>
+                  ) : null}
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="process" className="section">
+          <div className="container">
+            <div className="section-heading">
+              <p className="eyebrow">How I Work</p>
+              <h2>Build Process</h2>
+            </div>
+            <div className="process-grid">
+              {processData.map((item) => (
+                <article key={item.step} className="process-card">
+                  <p className="process-step">{item.step}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="section">
+          <div className="container">
+            <article className="contact-card">
+              <p className="eyebrow">Let us connect</p>
+              <h2>Open to frontend and OTT engineering opportunities</h2>
+              <div className="contact-links">
+                <a href={`mailto:${profileData.email}`}>
+                  <i data-lucide="mail" />
+                  {profileData.email}
+                </a>
+                <a
+                  href={profileData.linkedinUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <i data-lucide="linkedin" />
+                  linkedin.com/in/ajithkumar-kasi
+                </a>
+                <a href={`tel:${profileData.phone.replace(/\s/g, "")}`}>
+                  <i data-lucide="phone" />
+                  {profileData.phone}
+                </a>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <div className="container row-between">
+          <p>© 2026 {profileData.name}</p>
+          <a href={resumeFile} download>
+            Download Resume
+          </a>
         </div>
       </footer>
     </div>
