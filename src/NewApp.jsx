@@ -10,7 +10,7 @@ import {
   achievementsData,
   processData,
 } from "./data.js";
-const resumeFile = "/Ajithkumar_Kasi_Resume.pdf";
+const resumeFile = `${import.meta.env.BASE_URL}Ajithkumar_Kasi_Resume.pdf`;
 const resumeDownloadName = "Ajithkumar_Kasi_Resume.pdf";
 
 const NewApp = () => {
