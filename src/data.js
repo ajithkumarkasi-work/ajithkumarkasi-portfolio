@@ -78,12 +78,12 @@ export const experienceData = [
 
 export const projectsData = [
   {
-    title: "New Relic Validator Tool",
+    title: "Analytics Validator Tool",
     description:
       "Engineered an internal validation tool to automate analytics checks for production telemetry events.",
     impact: "Improved QA efficiency and validation precision by 40%.",
-    stack: ["React", "JavaScript", "New Relic"],
-    liveUrl: "https://ajithkumarkasi-work.github.io/new-relic-validator/",
+    stack: ["React", "JavaScript", "New Relic", "Datazoom"],
+    liveUrl: "https://ajithkumarkasi-work.github.io/analytics-validator/",
   },
   {
     title: "TotalQSR Platform",
@@ -101,7 +101,7 @@ export const projectsData = [
     impact:
       "Improved listing discoverability and user navigation through filters.",
     stack: ["React", "REST APIs", "Responsive UI"],
-    liveUrl: "https://ajithkumarkasi-work.github.io/Real-estate/",
+    liveUrl: "https://ajithkumarkasi-work.github.io/real-estate/",
   },
 ];
 
