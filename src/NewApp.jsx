@@ -10,9 +10,7 @@ import {
   achievementsData,
   processData,
 } from "./data.js";
-import resumePdf from "./Ajithkumar_Kasi.pdf";
-
-const resumeFile = resumePdf;
+const resumeFile = "/Ajithkumar_Kasi_Resume.pdf";
 const resumeDownloadName = "Ajithkumar_Kasi_Resume.pdf";
 
 const NewApp = () => {
