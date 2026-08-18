@@ -6,7 +6,7 @@ export const profileData = {
   location: "Chennai, Tamil Nadu, India",
   phone: "+91 6383333240",
   email: "ajithkumar.kasi.work@gmail.com",
-  portfolioUrl: "https://ajithkumarkasi-work.github.io/react-portfolio/",
+  portfolioUrl: "https://ajithkumarkasi-work.github.io/ajithkumarkasi-portfolio/",
   linkedinUrl: "https://linkedin.com/in/ajithkumar-kasi/",
 };
 
